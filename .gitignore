@@ -49,3 +49,5 @@ $RECYCLE.BIN/
 # Documentation drafts (keep final README.md)
 drafts/
 notes/
+TESTING.md
+design.md
