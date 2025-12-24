@@ -1,0 +1,51 @@
+# Development files
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Claude Code files
+.claude/
+*.md.plan
+*-plan.md
+
+# Node modules (if any)
+node_modules/
+package-lock.json
+
+# Python virtual environment files (from parent directory)
+.python-version
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Temporary files
+temp/
+tmp/
+*.bak
+
+# OS files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+desktop.ini
+$RECYCLE.BIN/
+
+# Archive files used during development
+*.zip
+
+# Test files (optional - uncomment if you don't want to track them)
+# tests/
+
+# Documentation drafts (keep final README.md)
+drafts/
+notes/

@@ -1,0 +1,67 @@
+{
+  "manifest_version": 3,
+  "name": "GeoLocator",
+  "version": "0.1.0",
+  "description": "Extract geographic locations from web pages and export to CSV",
+  "permissions": [
+    "storage",
+    "sidePanel",
+    "activeTab",
+    "scripting",
+    "tabs"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*",
+    "http://download.geonames.org/*",
+    "https://maps.googleapis.com/*",
+    "https://unpkg.com/@googlemaps/*"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "data/cities15000.json",
+        "map/map.html",
+        "map/map.js",
+        "map/images/marker-icon.png",
+        "map/images/marker-icon-2x.png",
+        "map/images/marker-shadow.png",
+        "lib/leaflet/leaflet.js",
+        "lib/leaflet/leaflet.css",
+        "lib/leaflet/images/marker-icon.png",
+        "lib/leaflet/images/marker-icon-2x.png",
+        "lib/leaflet/images/marker-shadow.png",
+        "lib/leaflet.markercluster/leaflet.markercluster.js",
+        "lib/leaflet.markercluster/MarkerCluster.css",
+        "lib/leaflet.markercluster/MarkerCluster.Default.css"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "background": {
+    "service_worker": "background/background.js",
+    "type": "module"
+  },
+  "side_panel": {
+    "default_path": "sidepanel/sidepanel.html"
+  },
+  "action": {
+    "default_title": "GeoLocator - Extract Locations",
+    "default_icon": {
+      "16": "assets/icon16.png",
+      "48": "assets/icon48.png",
+      "128": "assets/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "assets/icon16.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["data/cities15000.json"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

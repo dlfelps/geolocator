@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeoLocator</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1 class="title">🗺️ GeoLocator</h1>
+      <p class="subtitle" id="status">Ready to scan</p>
+    </header>
+
+    <!-- Loading State -->
+    <div class="loading-container" id="loading" style="display: none;">
+      <div class="spinner"></div>
+      <p class="loading-text" id="loading-text">Scanning page...</p>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" id="empty-state">
+      <div class="empty-icon">📍</div>
+      <h2>Find Locations on Any Page</h2>
+      <p>Click the button below to scan the current page for geographic locations.</p>
+      <button class="btn-primary" id="scan-btn">
+        <span>🔍</span> Scan Current Page
+      </button>
+    </div>
+
+    <!-- Error State -->
+    <div class="error-state" id="error-state" style="display: none;">
+      <div class="error-icon">⚠️</div>
+      <h2>Oops!</h2>
+      <p id="error-message">Something went wrong</p>
+      <button class="btn-secondary" id="retry-btn">Try Again</button>
+    </div>
+
+    <!-- Results -->
+    <div class="results-container" id="results" style="display: none;">
+      <div class="results-header">
+        <h2>
+          <span class="check-icon">✓</span>
+          Found <span id="location-count">0</span> locations
+        </h2>
+        <div class="view-toggle" id="view-toggle" style="display: none;">
+          <button class="toggle-btn active" data-view="list">
+            <span>📋</span> List
+          </button>
+          <button class="toggle-btn" data-view="map">
+            <span>🗺️</span> Map
+          </button>
+        </div>
+      </div>
+
+      <!-- Country Download Suggestions -->
+      <div class="download-suggestions" id="download-suggestions" style="display: none;">
+        <div class="suggestion-header">
+          <h3>📥 Download More Data for Better Results?</h3>
+          <p class="suggestion-text">
+            These countries were detected. Download country-specific data for improved accuracy and more locations.
+          </p>
+        </div>
+        <div class="country-checkboxes" id="country-checkboxes">
+          <!-- Will be populated dynamically -->
+        </div>
+        <div class="download-actions">
+          <button class="btn-download" id="download-selected-btn">
+            <span>⬇️</span> Download & Rescan
+          </button>
+          <button class="btn-link" id="skip-download-btn">Skip for now</button>
+        </div>
+      </div>
+
+      <!-- Map Container -->
+      <div class="map-container" id="map-container" style="display: none;">
+        <iframe id="map-iframe" class="map-canvas" src=""></iframe>
+        <div class="map-loading" id="map-loading" style="display: none;">
+          <div class="spinner"></div>
+          <p>Loading map...</p>
+        </div>
+        <div class="map-error" id="map-error" style="display: none;">
+          <div class="error-icon">⚠️</div>
+          <p id="map-error-message">Failed to load map</p>
+          <button class="btn-secondary" id="retry-map">Retry</button>
+        </div>
+      </div>
+
+      <!-- Locations List -->
+      <div class="locations-list" id="locations-list">
+        <!-- Will be populated dynamically -->
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <button class="btn-primary" id="export-btn">
+          <span>📤</span> Export to CSV
+        </button>
+        <button class="btn-secondary" id="rescan-btn">
+          <span>🔄</span> Scan Again
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p class="version">v0.1.0 MVP</p>
+    </footer>
+  </div>
+
+  <script type="module" src="sidepanel.js"></script>
+</body>
+</html>
