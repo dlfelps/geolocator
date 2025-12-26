@@ -28,14 +28,6 @@ const elements = {
   countryCheckboxes: null,
   downloadSelectedBtn: null,
   skipDownloadBtn: null,
-  // Settings modal
-  settingsBtn: null,
-  settingsModal: null,
-  closeSettingsBtn: null,
-  cancelSettingsBtn: null,
-  saveSettingsBtn: null,
-  apiKeyInput: null,
-  apiKeyError: null,
   // Map view
   viewToggle: null,
   mapContainer: null,
@@ -70,15 +62,6 @@ function init() {
   elements.countryCheckboxes = document.getElementById('country-checkboxes');
   elements.downloadSelectedBtn = document.getElementById('download-selected-btn');
   elements.skipDownloadBtn = document.getElementById('skip-download-btn');
-
-  // Settings modal elements
-  elements.settingsBtn = document.getElementById('settings-btn');
-  elements.settingsModal = document.getElementById('settings-modal');
-  elements.closeSettingsBtn = document.getElementById('close-settings');
-  elements.cancelSettingsBtn = document.getElementById('cancel-settings');
-  elements.saveSettingsBtn = document.getElementById('save-settings');
-  elements.apiKeyInput = document.getElementById('api-key-input');
-  elements.apiKeyError = document.getElementById('api-key-error');
 
   // Map view elements
   elements.viewToggle = document.getElementById('view-toggle');
@@ -622,133 +605,6 @@ async function handleDownloadCountries() {
     elements.downloadSelectedBtn.disabled = false;
     elements.downloadSelectedBtn.innerHTML = '<span>⬇️</span> Download & Rescan';
   }
-}
-
-/**
- * API Key Management Functions
- */
-
-/**
- * Save API key to chrome.storage.sync
- */
-async function saveApiKey(apiKey) {
-  await chrome.storage.sync.set({ 'google_maps_api_key': apiKey });
-  console.log('✅ API key saved');
-}
-
-/**
- * Load API key from chrome.storage.sync
- */
-async function loadApiKey() {
-  const result = await chrome.storage.sync.get(['google_maps_api_key']);
-  return result.google_maps_api_key || null;
-}
-
-/**
- * Validate API key format
- */
-function validateApiKey(key) {
-  if (!key || key.trim() === '') {
-    return { valid: false, error: 'API key is required' };
-  }
-
-  if (!key.startsWith('AIza')) {
-    return { valid: false, error: 'Invalid API key format. Keys should start with "AIza"' };
-  }
-
-  if (key.length < 30) {
-    return { valid: false, error: 'API key is too short. Please check your key.' };
-  }
-
-  return { valid: true };
-}
-
-/**
- * Settings Modal Functions
- */
-
-/**
- * Setup settings modal event handlers
- */
-function setupSettingsModal() {
-  // Open settings modal
-  elements.settingsBtn.addEventListener('click', async () => {
-    console.log('⚙️ Opening settings modal');
-
-    // Load current API key
-    const apiKey = await loadApiKey();
-    if (apiKey) {
-      elements.apiKeyInput.value = apiKey;
-    } else {
-      elements.apiKeyInput.value = '';
-    }
-
-    // Clear any errors
-    elements.apiKeyError.style.display = 'none';
-    elements.apiKeyError.textContent = '';
-
-    // Show modal
-    elements.settingsModal.style.display = 'flex';
-  });
-
-  // Close modal - X button
-  elements.closeSettingsBtn.addEventListener('click', () => {
-    elements.settingsModal.style.display = 'none';
-  });
-
-  // Close modal - Cancel button
-  elements.cancelSettingsBtn.addEventListener('click', () => {
-    elements.settingsModal.style.display = 'none';
-  });
-
-  // Close modal - Click outside
-  elements.settingsModal.addEventListener('click', (e) => {
-    if (e.target === elements.settingsModal) {
-      elements.settingsModal.style.display = 'none';
-    }
-  });
-
-  // Close modal - Escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && elements.settingsModal.style.display === 'flex') {
-      elements.settingsModal.style.display = 'none';
-    }
-  });
-
-  // Save API key
-  elements.saveSettingsBtn.addEventListener('click', async () => {
-    const apiKey = elements.apiKeyInput.value.trim();
-
-    // Validate
-    const validation = validateApiKey(apiKey);
-    if (!validation.valid) {
-      elements.apiKeyError.textContent = validation.error;
-      elements.apiKeyError.style.display = 'block';
-      return;
-    }
-
-    try {
-      // Save to storage
-      await saveApiKey(apiKey);
-
-      // Close modal
-      elements.settingsModal.style.display = 'none';
-
-      // Show success message
-      elements.status.textContent = 'API key saved successfully';
-      setTimeout(() => {
-        if (currentLocations.length > 0) {
-          elements.status.textContent = `Found ${currentLocations.length} location${currentLocations.length !== 1 ? 's' : ''}`;
-        } else {
-          elements.status.textContent = 'Ready to scan';
-        }
-      }, 3000);
-    } catch (error) {
-      console.error('Error saving API key:', error);
-      elements.apiKeyError.textContent = 'Failed to save API key. Please try again.';
-      elements.apiKeyError.style.display = 'block';
-    }
-  });
 }
 
 /**

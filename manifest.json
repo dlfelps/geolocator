@@ -4,7 +4,6 @@
   "version": "0.1.0",
   "description": "Extract geographic locations from web pages and export to CSV",
   "permissions": [
-    "storage",
     "sidePanel",
     "activeTab",
     "scripting",
@@ -13,9 +12,7 @@
   "host_permissions": [
     "http://*/*",
     "https://*/*",
-    "http://download.geonames.org/*",
-    "https://maps.googleapis.com/*",
-    "https://unpkg.com/@googlemaps/*"
+    "http://download.geonames.org/*"
   ],
   "web_accessible_resources": [
     {
@@ -57,11 +54,5 @@
     "16": "assets/icon16.png",
     "48": "assets/icon48.png",
     "128": "assets/icon128.png"
-  },
-  "web_accessible_resources": [
-    {
-      "resources": ["data/cities15000.json"],
-      "matches": ["<all_urls>"]
-    }
-  ]
+  }
 }
